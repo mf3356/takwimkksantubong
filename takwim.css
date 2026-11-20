@@ -1,0 +1,568 @@
+/* ===================================================
+   KKSantubong — takwim.css
+   Dashboard Penyelaras Takwim Tahunan
+   Tema: Royal Blue (#1a3a6b) + Maroon (#800000) + Putih
+   =================================================== */
+
+/* --- CSS Variables (lengkap, standalone) --- */
+:root {
+  --royal-blue: #1a3a6b;
+  --royal-blue-dark: #122a52;
+  --royal-blue-light: #2a5298;
+  --maroon: #800000;
+  --maroon-dark: #5c0000;
+  --maroon-light: #a00000;
+  --white: #ffffff;
+  --light-grey: #f5f6fa;
+  --border: #e0e4ef;
+  --text: #1f2328;
+  --muted: #57606a;
+  --success: #1a7a3a;
+  --warning: #b35900;
+  --danger: #c0392b;
+  --info: #1a5276;
+  --radius: 8px;
+  --shadow: 0 2px 8px rgba(26, 58, 107, 0.10);
+  --transition: 0.2s ease;
+}
+
+/* ===================================================
+   STAT / KPI CARDS
+   =================================================== */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 14px;
+}
+
+.stat-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  padding: 20px 18px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+  box-shadow: var(--shadow);
+  border-top: 4px solid transparent;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(26,58,107,0.14);
+}
+
+.stat-blue   { border-top-color: var(--royal-blue); }
+.stat-green  { border-top-color: #1a7a3a; }
+.stat-maroon { border-top-color: var(--maroon); }
+.stat-orange { border-top-color: #b35900; }
+
+.stat-icon  { font-size: 28px; }
+
+.stat-value {
+  font-size: 36px;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--royal-blue);
+}
+
+.stat-blue   .stat-value { color: var(--royal-blue); }
+.stat-green  .stat-value { color: #1a7a3a; }
+.stat-maroon .stat-value { color: var(--maroon); }
+.stat-orange .stat-value { color: #b35900; }
+
+.stat-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+/* ===================================================
+   LEGENDA WARNA KATEGORI
+   =================================================== */
+.legend-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.dot-akademik    { background: var(--royal-blue); }
+.dot-koko        { background: var(--maroon); }
+.dot-komuniti    { background: #1a7a3a; }
+.dot-pentadbiran { background: #b35900; }
+
+/* ===================================================
+   TAKWIM TAHUNAN — 12 BULAN GRID
+   =================================================== */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.cal-month {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px 12px 10px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.cal-month-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--royal-blue);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+  padding-bottom: 5px;
+  border-bottom: 2px solid var(--maroon);
+}
+
+.cal-event {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 7px;
+  border-radius: 4px;
+  line-height: 1.4;
+  color: var(--white);
+}
+
+.ev-akademik    { background: var(--royal-blue); }
+.ev-koko        { background: var(--maroon); }
+.ev-komuniti    { background: #1a7a3a; }
+.ev-pentadbiran { background: #b35900; }
+
+/* ===================================================
+   FILTER BAR (Senarai Program)
+   =================================================== */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.filter-input {
+  padding: 7px 11px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-family: inherit;
+  color: var(--text);
+  background: var(--white);
+  outline: none;
+  transition: border-color var(--transition);
+  flex: 1;
+  min-width: 160px;
+}
+
+.filter-input:focus {
+  border-color: var(--royal-blue-light);
+  box-shadow: 0 0 0 2px rgba(42,82,152,0.12);
+}
+
+.filter-select {
+  padding: 7px 11px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-family: inherit;
+  color: var(--text);
+  background: var(--white);
+  outline: none;
+  cursor: pointer;
+  transition: border-color var(--transition);
+  min-width: 150px;
+}
+
+.filter-select:focus {
+  border-color: var(--royal-blue-light);
+  box-shadow: 0 0 0 2px rgba(42,82,152,0.12);
+}
+
+/* ===================================================
+   CATEGORY BADGES (dalam jadual program)
+   =================================================== */
+.cat-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--white);
+}
+
+.cat-akademik    { background: var(--royal-blue); }
+.cat-koko        { background: var(--maroon); }
+.cat-komuniti    { background: #1a7a3a; }
+.cat-pentadbiran { background: #b35900; }
+
+.btn-sm {
+  padding: 3px 10px;
+  font-size: 11.5px;
+}
+
+/* ===================================================
+   GRAF STATISTIK — Chart.js
+   =================================================== */
+.chart-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 14px;
+}
+
+.chart-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.chart-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--royal-blue);
+  text-align: center;
+}
+
+/* ===================================================
+   JAWATANKUASA — KAD KETUA UNIT
+   =================================================== */
+.jk-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.jk-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: var(--shadow);
+  border-top: 3px solid var(--royal-blue);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.jk-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 16px rgba(26,58,107,0.14);
+}
+
+.jk-icon {
+  font-size: 28px;
+  margin-bottom: 2px;
+}
+
+.jk-name {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.3;
+}
+
+.jk-jawatan {
+  font-size: 11.5px;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.jk-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 4px;
+}
+
+.jk-stat-item {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 20px;
+}
+
+.jk-green { background: #d4edda; color: var(--success); }
+.jk-blue  { background: #d0e8ff; color: var(--info); }
+.jk-grey  { background: #e9ecef; color: var(--muted); }
+
+.jk-contact {
+  font-size: 11px;
+  color: var(--royal-blue-light);
+  margin-top: 4px;
+}
+
+/* ===================================================
+   DOKUMEN & LAPORAN — UPLOAD BOX
+   =================================================== */
+.upload-box-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.upload-box-icon {
+  font-size: 32px;
+  flex-shrink: 0;
+}
+
+.upload-box-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--royal-blue);
+}
+
+.upload-box-desc {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.upload-box-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.upload-form {
+  margin-bottom: 4px;
+}
+
+.upload-form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.upload-form-row input[type="file"] {
+  font-size: 12.5px;
+  font-family: inherit;
+  color: var(--muted);
+  flex: 1;
+  min-width: 160px;
+}
+
+/* ===================================================
+   SECTION-HEADER FLEX (utk butang + dalam header)
+   =================================================== */
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.section-header h2 {
+  flex: 1;
+}
+
+.btn-add {
+  margin-left: auto;
+  font-size: 12.5px;
+  padding: 5px 14px;
+  white-space: nowrap;
+}
+
+/* ===================================================
+   MODAL
+   =================================================== */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(18, 42, 82, 0.55);
+  z-index: 999;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.modal-overlay.aktif {
+  display: flex;
+}
+
+.modal {
+  background: var(--white);
+  border-radius: 10px;
+  box-shadow: 0 8px 32px rgba(26,58,107,0.22);
+  width: 100%;
+  max-width: 540px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: modalMuncul 0.18s ease;
+}
+
+.modal-sm {
+  max-width: 380px;
+}
+
+@keyframes modalMuncul {
+  from { transform: scale(0.94); opacity: 0; }
+  to   { transform: scale(1);    opacity: 1; }
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px 12px;
+  border-bottom: 2px solid var(--maroon);
+}
+
+.modal-header h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--royal-blue);
+  margin: 0;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  color: var(--muted);
+  line-height: 1;
+  padding: 0 4px;
+  transition: color var(--transition);
+}
+
+.modal-close:hover { color: var(--maroon); }
+
+.modal-body {
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 12px 20px 16px;
+  border-top: 1px solid var(--border);
+}
+
+/* ===================================================
+   FORM ELEMENTS (dalam modal)
+   =================================================== */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1;
+}
+
+.form-row {
+  display: flex;
+  gap: 14px;
+}
+
+.form-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.req { color: var(--maroon); }
+
+textarea.filter-input {
+  resize: vertical;
+  min-height: 80px;
+  font-family: inherit;
+  line-height: 1.5;
+}
+
+/* ===================================================
+   BUTANG PADAM (merah)
+   =================================================== */
+.btn-danger {
+  background: var(--danger);
+  color: var(--white);
+  border: none;
+}
+
+.btn-danger:hover {
+  background: #9b2c2c;
+  color: var(--white);
+  text-decoration: none;
+}
+
+/* ===================================================
+   RESPONSIVE
+   =================================================== */
+@media (max-width: 1024px) {
+  .calendar-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .chart-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .calendar-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .jk-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .filter-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .upload-form-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .chart-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .calendar-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .jk-grid {
+    grid-template-columns: 1fr;
+  }
+}
