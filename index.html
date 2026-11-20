@@ -1,0 +1,2098 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Penyelaras Takwim — KK Santubong</title>
+  <style>
+/* ===================================================
+   KKSantubong — style.css + takwim.css (INLINED)
+   Tema: Royal Blue (#1a3a6b) + Maroon (#800000) + Putih
+   =================================================== */
+
+/* --- CSS Variables --- */
+:root {
+  --royal-blue: #1a3a6b;
+  --royal-blue-dark: #122a52;
+  --royal-blue-light: #2a5298;
+  --maroon: #800000;
+  --maroon-dark: #5c0000;
+  --maroon-light: #a00000;
+  --white: #ffffff;
+  --light-grey: #f5f6fa;
+  --border: #e0e4ef;
+  --text: #1f2328;
+  --muted: #57606a;
+  --success: #1a7a3a;
+  --warning: #b35900;
+  --danger: #c0392b;
+  --info: #1a5276;
+  --radius: 8px;
+  --shadow: 0 2px 8px rgba(26, 58, 107, 0.10);
+  --transition: 0.2s ease;
+}
+
+/* --- Reset & Base --- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--light-grey);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+a { color: var(--royal-blue-light); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* --- Header --- */
+header {
+  background: var(--royal-blue);
+  color: var(--white);
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-logo {
+  width: 38px;
+  height: 38px;
+  background: var(--maroon);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--white);
+  flex-shrink: 0;
+}
+
+.header-title {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.header-subtitle {
+  font-size: 11px;
+  opacity: 0.75;
+  margin-top: 1px;
+}
+
+.header-meta {
+  text-align: right;
+  font-size: 12px;
+  opacity: 0.85;
+}
+
+#live-datetime { font-weight: 600; }
+
+/* --- Sidebar Nav --- */
+.layout {
+  display: flex;
+  flex: 1;
+}
+
+nav.sidebar {
+  width: 220px;
+  background: var(--royal-blue-dark);
+  color: var(--white);
+  position: sticky;
+  top: 64px;
+  height: calc(100vh - 64px);
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+
+nav.sidebar ul {
+  list-style: none;
+  padding: 16px 0;
+}
+
+nav.sidebar ul li a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 20px;
+  color: rgba(255,255,255,0.80);
+  font-size: 13.5px;
+  transition: background var(--transition), color var(--transition);
+  border-left: 3px solid transparent;
+}
+
+nav.sidebar ul li a:hover,
+nav.sidebar ul li a.active {
+  background: rgba(255,255,255,0.10);
+  color: var(--white);
+  border-left-color: var(--maroon);
+  text-decoration: none;
+}
+
+nav.sidebar ul li a .nav-icon { font-size: 16px; }
+
+/* --- Main Content --- */
+main {
+  flex: 1;
+  padding: 28px 32px;
+  max-width: 960px;
+}
+
+/* --- Section --- */
+.section {
+  margin-bottom: 36px;
+  scroll-margin-top: 80px;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--maroon);
+  flex-wrap: wrap;
+}
+
+.section-header h2 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--royal-blue);
+  flex: 1;
+}
+
+.section-icon {
+  font-size: 20px;
+}
+
+/* --- Card --- */
+.card {
+  background: var(--white);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  padding: 18px 20px;
+  box-shadow: var(--shadow);
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+/* --- Badge --- */
+.badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.badge-success { background: #d4edda; color: var(--success); }
+.badge-active  { background: #d0e8ff; color: var(--info); }
+.badge-pending { background: #e9ecef; color: var(--muted); }
+.badge-danger  { background: #fde8e8; color: var(--danger); }
+.badge-warning { background: #fef3cd; color: var(--warning); }
+
+/* --- Progress Bar --- */
+.progress-wrap {
+  margin-bottom: 16px;
+}
+
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  margin-bottom: 5px;
+  color: var(--muted);
+}
+
+.progress-bar-bg {
+  background: var(--border);
+  border-radius: 10px;
+  height: 10px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--royal-blue), var(--royal-blue-light));
+  border-radius: 10px;
+  transition: width 0.6s ease;
+}
+
+/* --- Links Grid --- */
+.links-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.link-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+  box-shadow: var(--shadow);
+  transition: background var(--transition), transform var(--transition);
+  color: var(--text);
+}
+
+.link-card:hover {
+  background: var(--royal-blue);
+  color: var(--white);
+  text-decoration: none;
+  transform: translateY(-2px);
+}
+
+.link-card .lc-icon  { font-size: 28px; }
+.link-card .lc-title { font-size: 13px; font-weight: 600; }
+.link-card .lc-desc  { font-size: 11px; opacity: 0.75; }
+
+/* --- Table --- */
+.table-wrap { overflow-x: auto; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+}
+
+thead tr {
+  background: var(--royal-blue);
+  color: var(--white);
+}
+
+thead th {
+  padding: 10px 14px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.3px;
+}
+
+tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background var(--transition);
+}
+
+tbody tr:hover { background: var(--light-grey); }
+tbody td { padding: 10px 14px; }
+
+/* --- Announcement --- */
+.announcement-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+
+.announcement-item {
+  background: var(--white);
+  border-left: 4px solid var(--maroon);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 12px 16px;
+  box-shadow: var(--shadow);
+}
+
+.announcement-title { font-weight: 600; font-size: 14px; margin-bottom: 2px; }
+.announcement-body  { font-size: 13px; color: var(--muted); }
+.announcement-date  { font-size: 11px; color: var(--muted); margin-top: 5px; }
+
+/* --- Footer --- */
+footer {
+  background: var(--royal-blue-dark);
+  color: rgba(255,255,255,0.65);
+  text-align: center;
+  padding: 14px 24px;
+  font-size: 12px;
+  border-top: 3px solid var(--maroon);
+}
+
+footer strong { color: var(--white); }
+
+/* ===================================================
+   TAKWIM.CSS — STAT CARDS, CALENDAR, MODALS, etc.
+   =================================================== */
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 14px;
+}
+
+.stat-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  padding: 20px 18px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+  box-shadow: var(--shadow);
+  border-top: 4px solid transparent;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(26,58,107,0.14);
+}
+
+.stat-blue   { border-top-color: var(--royal-blue); }
+.stat-green  { border-top-color: #1a7a3a; }
+.stat-maroon { border-top-color: var(--maroon); }
+.stat-orange { border-top-color: #b35900; }
+
+.stat-icon  { font-size: 28px; }
+
+.stat-value {
+  font-size: 36px;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--royal-blue);
+}
+
+.stat-blue   .stat-value { color: var(--royal-blue); }
+.stat-green  .stat-value { color: #1a7a3a; }
+.stat-maroon .stat-value { color: var(--maroon); }
+.stat-orange .stat-value { color: #b35900; }
+
+.stat-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.legend-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.dot-akademik    { background: var(--royal-blue); }
+.dot-koko        { background: var(--maroon); }
+.dot-komuniti    { background: #1a7a3a; }
+.dot-pentadbiran { background: #b35900; }
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.cal-month {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px 12px 10px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.cal-month-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--royal-blue);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+  padding-bottom: 5px;
+  border-bottom: 2px solid var(--maroon);
+}
+
+.cal-event {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 7px;
+  border-radius: 4px;
+  line-height: 1.4;
+  color: var(--white);
+}
+
+.ev-akademik    { background: var(--royal-blue); }
+.ev-koko        { background: var(--maroon); }
+.ev-komuniti    { background: #1a7a3a; }
+.ev-pentadbiran { background: #b35900; }
+
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.filter-input {
+  padding: 7px 11px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-family: inherit;
+  color: var(--text);
+  background: var(--white);
+  outline: none;
+  transition: border-color var(--transition);
+  flex: 1;
+  min-width: 160px;
+}
+
+.filter-input:focus {
+  border-color: var(--royal-blue-light);
+  box-shadow: 0 0 0 2px rgba(42,82,152,0.12);
+}
+
+.filter-select {
+  padding: 7px 11px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-family: inherit;
+  color: var(--text);
+  background: var(--white);
+  outline: none;
+  cursor: pointer;
+  transition: border-color var(--transition);
+  min-width: 150px;
+}
+
+.filter-select:focus {
+  border-color: var(--royal-blue-light);
+  box-shadow: 0 0 0 2px rgba(42,82,152,0.12);
+}
+
+.cat-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--white);
+}
+
+.cat-akademik    { background: var(--royal-blue); }
+.cat-koko        { background: var(--maroon); }
+.cat-komuniti    { background: #1a7a3a; }
+.cat-pentadbiran { background: #b35900; }
+
+.btn {
+  display: inline-block;
+  padding: 5px 14px;
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--transition);
+  text-align: center;
+  border: none;
+}
+
+.btn-primary {
+  background: var(--maroon);
+  color: var(--white);
+}
+
+.btn-primary:hover {
+  background: var(--maroon-dark);
+  text-decoration: none;
+  color: var(--white);
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--royal-blue);
+  color: var(--royal-blue);
+}
+
+.btn-outline:hover {
+  background: var(--royal-blue);
+  color: var(--white);
+  text-decoration: none;
+}
+
+.btn-sm {
+  padding: 3px 10px;
+  font-size: 11.5px;
+}
+
+.btn-add {
+  margin-left: auto;
+  font-size: 12.5px;
+  padding: 5px 14px;
+  white-space: nowrap;
+}
+
+.chart-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 14px;
+}
+
+.chart-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.chart-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--royal-blue);
+  text-align: center;
+}
+
+.jk-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.jk-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: var(--shadow);
+  border-top: 3px solid var(--royal-blue);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.jk-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 16px rgba(26,58,107,0.14);
+}
+
+.jk-icon {
+  font-size: 28px;
+  margin-bottom: 2px;
+}
+
+.jk-name {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.3;
+}
+
+.jk-jawatan {
+  font-size: 11.5px;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.jk-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 4px;
+}
+
+.jk-stat-item {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 20px;
+}
+
+.jk-green { background: #d4edda; color: var(--success); }
+.jk-blue  { background: #d0e8ff; color: var(--info); }
+.jk-grey  { background: #e9ecef; color: var(--muted); }
+
+.jk-contact {
+  font-size: 11px;
+  color: var(--royal-blue-light);
+  margin-top: 4px;
+}
+
+.upload-box-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.upload-box-icon {
+  font-size: 32px;
+  flex-shrink: 0;
+}
+
+.upload-box-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--royal-blue);
+}
+
+.upload-box-desc {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.upload-box-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.upload-form {
+  margin-bottom: 4px;
+}
+
+.upload-form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.upload-form-row input[type="file"] {
+  font-size: 12.5px;
+  font-family: inherit;
+  color: var(--muted);
+  flex: 1;
+  min-width: 160px;
+}
+
+/* --- Modal --- */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(18, 42, 82, 0.55);
+  z-index: 999;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.modal-overlay.aktif {
+  display: flex;
+}
+
+.modal {
+  background: var(--white);
+  border-radius: 10px;
+  box-shadow: 0 8px 32px rgba(26,58,107,0.22);
+  width: 100%;
+  max-width: 540px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: modalMuncul 0.18s ease;
+}
+
+.modal-sm {
+  max-width: 380px;
+}
+
+@keyframes modalMuncul {
+  from { transform: scale(0.94); opacity: 0; }
+  to   { transform: scale(1);    opacity: 1; }
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px 12px;
+  border-bottom: 2px solid var(--maroon);
+}
+
+.modal-header h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--royal-blue);
+  margin: 0;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  color: var(--muted);
+  line-height: 1;
+  padding: 0 4px;
+  transition: color var(--transition);
+}
+
+.modal-close:hover { color: var(--maroon); }
+
+.modal-body {
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 12px 20px 16px;
+  border-top: 1px solid var(--border);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1;
+}
+
+.form-row {
+  display: flex;
+  gap: 14px;
+}
+
+.form-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.req { color: var(--maroon); }
+
+textarea.filter-input {
+  resize: vertical;
+  min-height: 80px;
+  font-family: inherit;
+  line-height: 1.5;
+}
+
+.btn-danger {
+  background: var(--danger);
+  color: var(--white);
+  border: none;
+}
+
+.btn-danger:hover {
+  background: #9b2c2c;
+  color: var(--white);
+  text-decoration: none;
+}
+
+/* --- Responsive --- */
+@media (max-width: 1024px) {
+  .calendar-grid { grid-template-columns: repeat(3, 1fr); }
+  .chart-grid    { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  .layout { flex-direction: column; }
+  nav.sidebar { width: 100%; height: auto; position: static; }
+  nav.sidebar ul { display: flex; flex-wrap: wrap; padding: 8px; }
+  nav.sidebar ul li a { padding: 8px 12px; border-left: none; border-bottom: 2px solid transparent; font-size: 12px; }
+  nav.sidebar ul li a.active { border-left-color: transparent; border-bottom-color: var(--maroon); }
+  main { padding: 16px; }
+  header { height: auto; padding: 10px 16px; flex-wrap: wrap; gap: 6px; }
+  .stats-grid    { grid-template-columns: repeat(2, 1fr); }
+  .calendar-grid { grid-template-columns: repeat(2, 1fr); }
+  .jk-grid       { grid-template-columns: 1fr 1fr; }
+  .filter-bar    { flex-direction: column; align-items: stretch; }
+  .upload-form-row { flex-direction: column; align-items: stretch; }
+  .chart-grid    { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+  .stats-grid    { grid-template-columns: 1fr 1fr; }
+  .calendar-grid { grid-template-columns: 1fr 1fr; }
+  .jk-grid       { grid-template-columns: 1fr; }
+}
+  </style>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header>
+    <div class="header-brand">
+      <div class="header-logo">KK</div>
+      <div>
+        <div class="header-title">Dashboard Penyelaras Takwim</div>
+        <div class="header-subtitle">Kolej Komuniti Santubong &mdash; Takwim &amp; Program 2027</div>
+      </div>
+    </div>
+    <div class="header-meta">
+      <div id="live-datetime">—</div>
+      <div>Selamat Datang, Penyelaras Takwim</div>
+    </div>
+  </header>
+
+  <div class="layout">
+
+    <!-- ===== SIDEBAR NAV ===== -->
+    <nav class="sidebar">
+      <ul>
+        <li><a href="#ringkasan"    class="nav-link"><span class="nav-icon">📊</span> Ringkasan</a></li>
+        <li><a href="#takwim"       class="nav-link"><span class="nav-icon">📅</span> Takwim Tahunan</a></li>
+        <li><a href="#program"      class="nav-link"><span class="nav-icon">📋</span> Senarai Program</a></li>
+        <li><a href="#graf"         class="nav-link"><span class="nav-icon">📈</span> Graf Statistik</a></li>
+        <li><a href="#jawatankuasa" class="nav-link"><span class="nav-icon">👥</span> Jawatankuasa</a></li>
+        <li><a href="#pengumuman"   class="nav-link"><span class="nav-icon">📢</span> Pengumuman</a></li>
+        <li><a href="#dokumen"      class="nav-link"><span class="nav-icon">📁</span> Dokumen &amp; Laporan</a></li>
+        <li><a href="#pautan"       class="nav-link"><span class="nav-icon">🔗</span> Pautan Penting</a></li>
+        <li><a href="#eksport"      class="nav-link"><span class="nav-icon">🔄</span> Export / Import</a></li>
+      </ul>
+    </nav>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main>
+
+      <!-- ===== SEKSYEN 1: RINGKASAN KPI ===== -->
+      <section class="section" id="ringkasan">
+        <div class="section-header">
+          <span class="section-icon">📊</span>
+          <h2>Ringkasan Takwim 2027</h2>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card stat-blue">
+            <div class="stat-icon">📋</div>
+            <div class="stat-value" id="kpi-jumlah">0</div>
+            <div class="stat-label">Jumlah Program</div>
+          </div>
+          <div class="stat-card stat-green">
+            <div class="stat-icon">✅</div>
+            <div class="stat-value" id="kpi-selesai">0</div>
+            <div class="stat-label">Program Selesai</div>
+          </div>
+          <div class="stat-card stat-maroon">
+            <div class="stat-icon">🔵</div>
+            <div class="stat-value" id="kpi-aktif">0</div>
+            <div class="stat-label">Sedang Berjalan</div>
+          </div>
+          <div class="stat-card stat-orange">
+            <div class="stat-icon">⏳</div>
+            <div class="stat-value" id="kpi-plan">0</div>
+            <div class="stat-label">Akan Datang</div>
+          </div>
+        </div>
+        <div class="card" style="margin-top:16px;">
+          <div class="progress-wrap">
+            <div class="progress-label">
+              <span>Perkembangan Keseluruhan Pelaksanaan Takwim 2027</span>
+              <span id="kpi-peratus">0% Selesai</span>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" id="progress-fill" style="width:0%;"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== SEKSYEN 2: TAKWIM TAHUNAN ===== -->
+      <section class="section" id="takwim">
+        <div class="section-header">
+          <span class="section-icon">📅</span>
+          <h2>Takwim Tahunan 2027</h2>
+        </div>
+        <div class="card" style="margin-bottom:12px;">
+          <div class="legend-wrap">
+            <span class="legend-item"><span class="legend-dot dot-akademik"></span> Teknologi Elektrik / Pengajian Am</span>
+            <span class="legend-item"><span class="legend-dot dot-koko"></span> Sukan</span>
+            <span class="legend-item"><span class="legend-dot dot-komuniti"></span> Pembangunan Pelajar</span>
+            <span class="legend-item"><span class="legend-dot dot-pentadbiran"></span> Pentadbiran / Jaminan Kualiti / Peperiksaan</span>
+          </div>
+        </div>
+        <div class="calendar-grid" id="calendar-grid">
+          <!-- Diisi oleh JS -->
+        </div>
+      </section>
+
+      <!-- ===== SEKSYEN 3: SENARAI PROGRAM ===== -->
+      <section class="section" id="program">
+        <div class="section-header">
+          <span class="section-icon">📋</span>
+          <h2>Senarai Program &amp; Aktiviti 2027</h2>
+          <button class="btn btn-primary btn-add" id="btn-tambah-program">＋ Tambah Program</button>
+        </div>
+        <div class="card">
+          <div class="filter-bar">
+            <input type="text" id="cari-program" class="filter-input" placeholder="🔍 Cari nama program..." />
+            <select id="filter-bulan" class="filter-select">
+              <option value="">Semua Bulan</option>
+              <option value="01">Januari</option><option value="02">Februari</option>
+              <option value="03">Mac</option><option value="04">April</option>
+              <option value="05">Mei</option><option value="06">Jun</option>
+              <option value="07">Julai</option><option value="08">Ogos</option>
+              <option value="09">September</option><option value="10">Oktober</option>
+              <option value="11">November</option><option value="12">Disember</option>
+            </select>
+            <select id="filter-kategori" class="filter-select">
+              <option value="">Semua Kategori</option>
+              <option value="Akademik">Teknologi Elektrik / Pengajian Am</option>
+              <option value="Kokurikulum">Sukan</option>
+              <option value="Komuniti">Pembangunan Pelajar</option>
+              <option value="Pentadbiran">Pentadbiran / Jaminan Kualiti / Peperiksaan</option>
+            </select>
+            <select id="filter-status" class="filter-select">
+              <option value="">Semua Status</option>
+              <option value="Selesai">Selesai</option>
+              <option value="Aktif">Sedang Berjalan</option>
+              <option value="Dirancang">Dirancang</option>
+              <option value="Dibatalkan">Dibatalkan</option>
+            </select>
+          </div>
+          <div class="table-wrap" style="margin-top:14px;">
+            <table>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Nama Program / Aktiviti</th>
+                  <th>Tarikh</th>
+                  <th>Kategori</th>
+                  <th>Jawatan/Unit</th>
+                  <th>Status</th>
+                  <th>Tindakan</th>
+                </tr>
+              </thead>
+              <tbody id="jadual-program">
+                <!-- Diisi oleh JS -->
+              </tbody>
+            </table>
+          </div>
+          <p id="tiada-rekod" style="display:none; text-align:center; padding:20px; color:var(--muted); font-size:13px;">Tiada rekod program. Klik <strong>＋ Tambah Program</strong> untuk mula.</p>
+        </div>
+      </section>
+
+      <!-- ===== SEKSYEN 4: GRAF STATISTIK ===== -->
+      <section class="section" id="graf">
+        <div class="section-header">
+          <span class="section-icon">📈</span>
+          <h2>Graf Statistik Program</h2>
+        </div>
+        <div class="chart-grid">
+          <div class="card chart-wrap">
+            <div class="chart-title">Bilangan Program Mengikut Bulan</div>
+            <canvas id="chartBulan"></canvas>
+          </div>
+          <div class="card chart-wrap">
+            <div class="chart-title">Agihan Program Mengikut Kategori</div>
+            <canvas id="chartKategori"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== SEKSYEN 5: JAWATANKUASA ===== -->
+      <section class="section" id="jawatankuasa">
+        <div class="section-header">
+          <span class="section-icon">👥</span>
+          <h2>Jawatankuasa Takwim — Jawatan/Unit</h2>
+          <button class="btn btn-primary btn-add" id="btn-tambah-jk">＋ Tambah Jawatan/Unit</button>
+        </div>
+        <div class="jk-grid" id="jk-grid">
+          <!-- Diisi oleh JS -->
+        </div>
+        <p id="tiada-jk" style="display:none; text-align:center; padding:20px; color:var(--muted); font-size:13px;">Tiada rekod jawatankuasa. Klik <strong>＋ Tambah Jawatan/Unit</strong> untuk mula.</p>
+      </section>
+
+      <!-- ===== SEKSYEN 6: PENGUMUMAN ===== -->
+      <section class="section" id="pengumuman">
+        <div class="section-header">
+          <span class="section-icon">📢</span>
+          <h2>Pengumuman &amp; Notis</h2>
+          <button class="btn btn-primary btn-add" id="btn-tambah-umum">＋ Tambah Pengumuman</button>
+        </div>
+        <ul class="announcement-list" id="senarai-pengumuman">
+          <!-- Diisi oleh JS -->
+        </ul>
+        <p id="tiada-umum" style="display:none; text-align:center; padding:20px; color:var(--muted); font-size:13px;">Tiada pengumuman. Klik <strong>＋ Tambah Pengumuman</strong> untuk mula.</p>
+      </section>
+
+      <!-- ===== SEKSYEN 7: DOKUMEN & LAPORAN ===== -->
+      <section class="section" id="dokumen">
+        <div class="section-header">
+          <span class="section-icon">📁</span>
+          <h2>Dokumen &amp; Laporan</h2>
+        </div>
+
+        <!-- Muat Turun Takwim -->
+        <div class="card upload-box" style="margin-bottom:18px;">
+          <div class="upload-box-header">
+            <span class="upload-box-icon">📥</span>
+            <div>
+              <div class="upload-box-title">Takwim Tahunan 2027</div>
+              <div class="upload-box-desc">Versi 1.0 &bull; Kemaskini: 01/01/2027</div>
+            </div>
+          </div>
+          <div class="upload-box-actions">
+            <a href="takwim-2027.pdf" download class="btn btn-primary">📄 Muat Turun PDF</a>
+            <a href="takwim-2027.xlsx" download class="btn btn-outline">📊 Muat Turun Excel</a>
+          </div>
+        </div>
+
+        <!-- Muat Naik Laporan Pelaksanaan -->
+        <div class="card upload-box" style="margin-bottom:18px;">
+          <div class="upload-box-header">
+            <span class="upload-box-icon">📤</span>
+            <div>
+              <div class="upload-box-title">Laporan Pelaksanaan Program</div>
+              <div class="upload-box-desc">Muat naik laporan selepas program dilaksanakan (.pdf, .docx, .xlsx)</div>
+            </div>
+          </div>
+          <form id="form-pelaksanaan" class="upload-form" onsubmit="return false;">
+            <div class="upload-form-row">
+              <input type="text"  id="pel-nama"   class="filter-input" placeholder="Nama Program" />
+              <input type="date"  id="pel-tarikh" class="filter-input" />
+              <input type="file"  id="pel-fail"   accept=".pdf,.docx,.xlsx" />
+              <button type="button" class="btn btn-primary" onclick="handleUpload('pelaksanaan')">📤 Muat Naik</button>
+            </div>
+          </form>
+          <div class="table-wrap" style="margin-top:12px;">
+            <table>
+              <thead><tr><th>#</th><th>Nama Program</th><th>Tarikh</th><th>Nama Fail</th><th>Status</th><th>Tindakan</th></tr></thead>
+              <tbody id="tbody-pelaksanaan"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Muat Naik Laporan Post Mortem -->
+        <div class="card upload-box">
+          <div class="upload-box-header">
+            <span class="upload-box-icon">📝</span>
+            <div>
+              <div class="upload-box-title">Laporan Post Mortem Program</div>
+              <div class="upload-box-desc">Muat naik laporan post mortem selepas program selesai (.pdf, .docx)</div>
+            </div>
+          </div>
+          <form id="form-postmortem" class="upload-form" onsubmit="return false;">
+            <div class="upload-form-row">
+              <input type="text"  id="pm-nama"   class="filter-input" placeholder="Nama Program" />
+              <input type="date"  id="pm-tarikh" class="filter-input" />
+              <input type="file"  id="pm-fail"   accept=".pdf,.docx" />
+              <button type="button" class="btn btn-primary" onclick="handleUpload('postmortem')">📤 Muat Naik</button>
+            </div>
+          </form>
+          <div class="table-wrap" style="margin-top:12px;">
+            <table>
+              <thead><tr><th>#</th><th>Nama Program</th><th>Tarikh Program</th><th>Nama Fail</th><th>Status</th><th>Tindakan</th></tr></thead>
+              <tbody id="tbody-postmortem"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== SEKSYEN 8: PAUTAN PENTING ===== -->
+      <section class="section" id="pautan">
+        <div class="section-header">
+          <span class="section-icon">🔗</span>
+          <h2>Pautan Penting</h2>
+        </div>
+        <div class="links-grid">
+          <a href="#" class="link-card" target="_blank">
+            <span class="lc-icon">🏫</span>
+            <span class="lc-title">Portal KK Santubong</span>
+            <span class="lc-desc">Laman web rasmi kolej</span>
+          </a>
+          <a href="#" class="link-card" target="_blank">
+            <span class="lc-icon">📂</span>
+            <span class="lc-title">Google Drive Takwim</span>
+            <span class="lc-desc">Semua fail &amp; dokumen rasmi</span>
+          </a>
+          <a href="#" class="link-card" target="_blank">
+            <span class="lc-icon">📝</span>
+            <span class="lc-title">Borang Cadangan Program</span>
+            <span class="lc-desc">Hantar cadangan program baharu</span>
+          </a>
+          <a href="#" class="link-card" target="_blank">
+            <span class="lc-icon">📊</span>
+            <span class="lc-title">Sistem Pelaporan KPI</span>
+            <span class="lc-desc">Portal pelaporan prestasi</span>
+          </a>
+          <a href="#" class="link-card" target="_blank">
+            <span class="lc-icon">📅</span>
+            <span class="lc-title">Jadual Mesyuarat</span>
+            <span class="lc-desc">Jadual mesyuarat pengurusan</span>
+          </a>
+          <a href="mailto:pengarah@kksantubong.edu.my" class="link-card">
+            <span class="lc-icon">✉️</span>
+            <span class="lc-title">E-mel Pengarah</span>
+            <span class="lc-desc">Hubungi pengarah kolej</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- ===== SEKSYEN 9: EXPORT / IMPORT ===== -->
+      <section class="section" id="eksport">
+        <div class="section-header">
+          <span class="section-icon">🔄</span>
+          <h2>Export &amp; Import Data</h2>
+        </div>
+
+        <div class="card upload-box" style="margin-bottom:18px;">
+          <div class="upload-box-header">
+            <span class="upload-box-icon">📤</span>
+            <div>
+              <div class="upload-box-title">Export Data Dashboard</div>
+              <div class="upload-box-desc">Muat turun semua data (program, jawatankuasa, pengumuman, laporan) sebagai fail <strong>.json</strong> untuk dikongsi dengan Ketua Unit lain.</div>
+            </div>
+          </div>
+          <div class="upload-box-actions">
+            <button class="btn btn-primary" onclick="exportData()">📥 Export Semua Data (.json)</button>
+          </div>
+          <p style="font-size:11.5px; color:var(--muted); margin-top:10px;">💡 Fail JSON boleh dihantar melalui WhatsApp, e-mel, atau Google Drive kepada Ketua Unit lain untuk mereka Import ke dashboard mereka.</p>
+        </div>
+
+        <div class="card upload-box">
+          <div class="upload-box-header">
+            <span class="upload-box-icon">📥</span>
+            <div>
+              <div class="upload-box-title">Import Data Dashboard</div>
+              <div class="upload-box-desc">Muatkan fail <strong>.json</strong> yang diterima daripada Penyelaras Takwim untuk melihat data terkini.</div>
+            </div>
+          </div>
+          <div class="upload-form-row" style="margin-top:4px;">
+            <input type="file" id="import-fail" accept=".json" class="filter-input" style="flex:1;" />
+            <button class="btn btn-primary" onclick="importData()">📂 Import Data</button>
+          </div>
+          <p id="import-status" style="font-size:12px; margin-top:10px; display:none;"></p>
+          <p style="font-size:11.5px; color:var(--muted); margin-top:8px;">⚠️ Import akan <strong>menggantikan</strong> semua data sedia ada dalam dashboard ini. Pastikan anda mengeksport data lama terlebih dahulu jika perlu.</p>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <strong>Dashboard Penyelaras Takwim Tahunan</strong> &bull;
+    Kolej Komuniti Santubong &bull; Takwim &amp; Program 2027
+    <br>
+    <span style="font-size:11px; opacity:0.6;">Untuk pertanyaan, hubungi Penyelaras Takwim Tahunan kolej.</span>
+  </footer>
+
+  <!-- ===================================================
+       MODAL: TAMBAH / EDIT PROGRAM
+       =================================================== -->
+  <div class="modal-overlay" id="modal-program">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="modal-program-title">Tambah Program Baharu</h3>
+        <button class="modal-close" onclick="tutupModal('modal-program')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="prog-id" />
+        <div class="form-group">
+          <label class="form-label">Nama Program / Aktiviti <span class="req">*</span></label>
+          <input type="text" id="prog-nama" class="filter-input" placeholder="Contoh: Bengkel Digital Marketing" />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Tarikh <span class="req">*</span></label>
+            <input type="date" id="prog-tarikh" class="filter-input" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Kategori <span class="req">*</span></label>
+            <select id="prog-kategori" class="filter-select">
+              <option value="">-- Pilih --</option>
+              <option value="Akademik">Akademik</option>
+              <option value="Kokurikulum">Kokurikulum &amp; Sukan</option>
+              <option value="Komuniti">Komuniti &amp; Industri</option>
+              <option value="Pentadbiran">Pentadbiran</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Jawatan/Unit <span class="req">*</span></label>
+            <select id="prog-ketua" class="filter-select">
+              <option value="">-- Pilih Unit --</option>
+              <option value="Pembangunan Pelajar">Pegawai Pembangunan Pelajar</option>
+              <option value="Teknologi Elektrik">Ketua Program (Teknologi Elektrik)</option>
+              <option value="Pengajian Am">Ketua Unit Pengajian Am</option>
+              <option value="Peperiksaan">Pegawai Peperiksaan</option>
+              <option value="Jaminan Kualiti">Ketua Unit Jaminan Kualiti</option>
+              <option value="Sukan">Penyelaras Sukan</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Status <span class="req">*</span></label>
+            <select id="prog-status" class="filter-select">
+              <option value="Dirancang">Dirancang</option>
+              <option value="Aktif">Sedang Berjalan</option>
+              <option value="Selesai">Selesai</option>
+              <option value="Dibatalkan">Dibatalkan</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Lokasi / Catatan</label>
+          <input type="text" id="prog-lokasi" class="filter-input" placeholder="Contoh: Makmal ICT 1 / Dewan Utama" />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="tutupModal('modal-program')">Batal</button>
+        <button class="btn btn-primary" onclick="simpanProgram()">✅ Simpan Program</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================
+       MODAL: TAMBAH / EDIT JAWATANKUASA
+       =================================================== -->
+  <div class="modal-overlay" id="modal-jk">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="modal-jk-title">Tambah Jawatan/Unit</h3>
+        <button class="modal-close" onclick="tutupModal('modal-jk')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="jk-id" />
+        <div class="form-group">
+          <label class="form-label">Nama Penuh <span class="req">*</span></label>
+          <input type="text" id="jk-nama" class="filter-input" placeholder="Contoh: En. Ahmad bin Ali" />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Jawatan / Unit <span class="req">*</span></label>
+            <select id="jk-unit" class="filter-select">
+              <option value="">-- Pilih Unit --</option>
+              <option value="Pembangunan Pelajar">Pegawai Pembangunan Pelajar</option>
+              <option value="Teknologi Elektrik">Ketua Program (Teknologi Elektrik)</option>
+              <option value="Pengajian Am">Ketua Unit Pengajian Am</option>
+              <option value="Peperiksaan">Pegawai Peperiksaan</option>
+              <option value="Jaminan Kualiti">Ketua Unit Jaminan Kualiti</option>
+              <option value="Sukan">Penyelaras Sukan</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Ikon Unit</label>
+            <select id="jk-ikon" class="filter-select">
+              <option value="🧑‍🎓">🧑‍🎓 Pembangunan Pelajar</option>
+              <option value="⚡">⚡ Teknologi Elektrik</option>
+              <option value="📖">📖 Pengajian Am</option>
+              <option value="📝">📝 Peperiksaan</option>
+              <option value="🏅">🏅 Jaminan Kualiti</option>
+              <option value="🏃">🏃 Sukan</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">E-mel</label>
+          <input type="email" id="jk-emel" class="filter-input" placeholder="Contoh: ahmad@kksantubong.edu.my" />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="tutupModal('modal-jk')">Batal</button>
+        <button class="btn btn-primary" onclick="simpanJK()">✅ Simpan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================
+       MODAL: TAMBAH / EDIT PENGUMUMAN
+       =================================================== -->
+  <div class="modal-overlay" id="modal-umum">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="modal-umum-title">Tambah Pengumuman Baharu</h3>
+        <button class="modal-close" onclick="tutupModal('modal-umum')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="umum-id" />
+        <div class="form-group">
+          <label class="form-label">Tajuk Pengumuman <span class="req">*</span></label>
+          <input type="text" id="umum-tajuk" class="filter-input" placeholder="Contoh: Penyerahan Laporan Post Mortem" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Isi Pengumuman <span class="req">*</span></label>
+          <textarea id="umum-isi" class="filter-input" rows="4" placeholder="Tulis isi pengumuman di sini..."></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Tarikh &amp; Masa</label>
+          <input type="datetime-local" id="umum-tarikh" class="filter-input" />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="tutupModal('modal-umum')">Batal</button>
+        <button class="btn btn-primary" onclick="simpanPengumuman()">✅ Simpan Pengumuman</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MODAL PENGESAHAN PADAM ===== -->
+  <div class="modal-overlay" id="modal-padam">
+    <div class="modal modal-sm">
+      <div class="modal-header">
+        <h3>Sahkan Pemadaman</h3>
+        <button class="modal-close" onclick="tutupModal('modal-padam')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p id="padam-mesej" style="font-size:14px; color:var(--text);">Adakah anda pasti mahu memadam rekod ini?</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="tutupModal('modal-padam')">Batal</button>
+        <button class="btn btn-danger" id="btn-sahkan-padam">🗑️ Ya, Padam</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+// ===================================================
+// KKSantubong — takwim.js  (CRUD + localStorage)
+// Dashboard Penyelaras Takwim Tahunan
+// ===================================================
+
+// STORAGE KEYS
+const KEY_PROGRAM     = 'kk_takwim_program';
+const KEY_JK          = 'kk_takwim_jk';
+const KEY_UMUM        = 'kk_takwim_umum';
+const KEY_PELAKSANAAN = 'kk_laporan_pelaksanaan';
+const KEY_POSTMORTEM  = 'kk_laporan_postmortem';
+
+// UTILITI
+function baca(key)        { return JSON.parse(localStorage.getItem(key) || '[]'); }
+function simpan(key, data) { localStorage.setItem(key, JSON.stringify(data)); }
+function idBaharu()       { return Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
+
+function formatTarikh(iso) {
+  if (!iso) return '—';
+  const [y, m, d] = iso.split('-');
+  return `${d}/${m}/${y}`;
+}
+
+function bulanDariIso(iso) {
+  if (!iso) return '';
+  return iso.slice(5, 7);
+}
+
+// LIVE DATETIME
+function updateDatetime() {
+  const el = document.getElementById('live-datetime');
+  if (!el) return;
+  const now    = new Date();
+  const days   = ['Ahad','Isnin','Selasa','Rabu','Khamis','Jumaat','Sabtu'];
+  const months = ['Jan','Feb','Mac','Apr','Mei','Jun','Jul','Ogos','Sep','Okt','Nov','Dis'];
+  const hours  = String(now.getHours()).padStart(2,'0');
+  const mins   = String(now.getMinutes()).padStart(2,'0');
+  el.textContent = `${days[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()} | ${hours}:${mins}`;
+}
+updateDatetime();
+setInterval(updateDatetime, 60000);
+
+// NAVIGASI
+const navLinks = document.querySelectorAll('.nav-link');
+
+navLinks.forEach(link => {
+  link.addEventListener('click', function (e) {
+    const href = this.getAttribute('href');
+    if (href && href.startsWith('#')) {
+      e.preventDefault();
+      const target = document.querySelector(href);
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    navLinks.forEach(l => l.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+
+function onScroll() {
+  const sections = document.querySelectorAll('section.section');
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 90) current = '#' + s.getAttribute('id');
+  });
+  navLinks.forEach(l => {
+    l.classList.remove('active');
+    if (l.getAttribute('href') === current) l.classList.add('active');
+  });
+}
+window.addEventListener('scroll', onScroll);
+onScroll();
+
+// MODAL HELPERS
+function bukaModal(id) {
+  document.getElementById(id).classList.add('aktif');
+}
+function tutupModal(id) {
+  document.getElementById(id).classList.remove('aktif');
+}
+
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+  overlay.addEventListener('click', function (e) {
+    if (e.target === this) this.classList.remove('aktif');
+  });
+});
+
+// KPI
+function kemasKiniKPI() {
+  const data      = baca(KEY_PROGRAM);
+  const jumlah    = data.length;
+  const selesai   = data.filter(p => p.status === 'Selesai').length;
+  const aktif     = data.filter(p => p.status === 'Aktif').length;
+  const dirancang = data.filter(p => p.status === 'Dirancang').length;
+  const peratus   = jumlah > 0 ? Math.round((selesai / jumlah) * 100) : 0;
+
+  document.getElementById('kpi-jumlah').textContent  = jumlah;
+  document.getElementById('kpi-selesai').textContent = selesai;
+  document.getElementById('kpi-aktif').textContent   = aktif;
+  document.getElementById('kpi-plan').textContent    = dirancang;
+  document.getElementById('kpi-peratus').textContent = `${peratus}% Selesai`;
+  document.getElementById('progress-fill').style.width = `${peratus}%`;
+}
+
+// TAKWIM TAHUNAN
+const NAMA_BULAN = ['Januari','Februari','Mac','April','Mei','Jun',
+                    'Julai','Ogos','September','Oktober','November','Disember'];
+
+const KAT_CLASS = {
+  'Akademik':    'ev-akademik',
+  'Kokurikulum': 'ev-koko',
+  'Komuniti':    'ev-komuniti',
+  'Pentadbiran': 'ev-pentadbiran'
+};
+
+function renderTakwim() {
+  const grid = document.getElementById('calendar-grid');
+  if (!grid) return;
+  const data = baca(KEY_PROGRAM);
+
+  grid.innerHTML = NAMA_BULAN.map((nama, i) => {
+    const mm = String(i + 1).padStart(2, '0');
+    const programBulanIni = data.filter(p => bulanDariIso(p.tarikh) === mm);
+    const events = programBulanIni.map(p =>
+      `<div class="cal-event ${KAT_CLASS[p.kategori] || 'ev-pentadbiran'}" title="${p.lokasi || ''}">${p.nama}</div>`
+    ).join('');
+    return `<div class="cal-month">
+      <div class="cal-month-name">${nama}</div>
+      ${events || '<div style="font-size:10.5px;color:var(--muted);padding:2px 0;">Tiada program</div>'}
+    </div>`;
+  }).join('');
+}
+
+// SENARAI PROGRAM
+const STATUS_BADGE = {
+  'Selesai':    '<span class="badge badge-success">Selesai</span>',
+  'Aktif':      '<span class="badge badge-active">Sedang Berjalan</span>',
+  'Dirancang':  '<span class="badge badge-pending">Dirancang</span>',
+  'Dibatalkan': '<span class="badge badge-danger">Dibatalkan</span>'
+};
+
+const KAT_BADGE = {
+  'Akademik':    '<span class="cat-badge cat-akademik">Teknologi Elektrik / Pengajian Am</span>',
+  'Kokurikulum': '<span class="cat-badge cat-koko">Sukan</span>',
+  'Komuniti':    '<span class="cat-badge cat-komuniti">Pembangunan Pelajar</span>',
+  'Pentadbiran': '<span class="cat-badge cat-pentadbiran">Pentadbiran / JK / Peperiksaan</span>'
+};
+
+function renderProgram() {
+  const tbody = document.getElementById('jadual-program');
+  if (!tbody) return;
+  const data = baca(KEY_PROGRAM);
+
+  if (data.length === 0) {
+    tbody.innerHTML = '';
+    document.getElementById('tiada-rekod').style.display = '';
+    return;
+  }
+
+  document.getElementById('tiada-rekod').style.display = 'none';
+  tbody.innerHTML = data.map((p, i) => `
+    <tr data-bulan="${bulanDariIso(p.tarikh)}" data-kategori="${p.kategori}" data-status="${p.status}">
+      <td>${i + 1}</td>
+      <td>${p.nama}${p.lokasi ? `<br><small style="color:var(--muted);">📍 ${p.lokasi}</small>` : ''}</td>
+      <td>${formatTarikh(p.tarikh)}</td>
+      <td>${KAT_BADGE[p.kategori] || p.kategori}</td>
+      <td>${UNIT_LABEL[p.ketua] || p.ketua}</td>
+      <td>${STATUS_BADGE[p.status] || p.status}</td>
+      <td style="white-space:nowrap;">
+        <button class="btn btn-outline btn-sm" onclick="editProgram('${p.id}')">✏️</button>
+        <button class="btn btn-outline btn-sm" style="color:var(--danger);border-color:var(--danger);" onclick="padamKonfirm('program','${p.id}','${p.nama.replace(/'/g,"\\'")}')">🗑️</button>
+      </td>
+    </tr>`).join('');
+
+  filterProgram();
+}
+
+function filterProgram() {
+  const tbody = document.getElementById('jadual-program');
+  if (!tbody) return;
+  const cari     = (document.getElementById('cari-program')?.value || '').toLowerCase().trim();
+  const bulan    = document.getElementById('filter-bulan')?.value    || '';
+  const kategori = (document.getElementById('filter-kategori')?.value || '').toLowerCase();
+  const status   = document.getElementById('filter-status')?.value   || '';
+
+  let visible = 0;
+  tbody.querySelectorAll('tr').forEach(row => {
+    const nama    = row.cells[1]?.textContent.toLowerCase() || '';
+    const rBulan  = row.getAttribute('data-bulan')    || '';
+    const rKat    = (row.getAttribute('data-kategori') || '').toLowerCase();
+    const rStatus = row.getAttribute('data-status')   || '';
+
+    const ok = (!cari || nama.includes(cari))
+            && (!bulan || rBulan === bulan)
+            && (!kategori || rKat === kategori)
+            && (!status || rStatus === status);
+
+    row.style.display = ok ? '' : 'none';
+    if (ok) visible++;
+  });
+
+  const tiadaEl = document.getElementById('tiada-rekod');
+  if (tiadaEl) tiadaEl.style.display = (visible === 0 && baca(KEY_PROGRAM).length > 0) ? '' : 'none';
+}
+
+['cari-program','filter-bulan','filter-kategori','filter-status'].forEach(id => {
+  document.getElementById(id)?.addEventListener(id === 'cari-program' ? 'input' : 'change', filterProgram);
+});
+
+document.getElementById('btn-tambah-program')?.addEventListener('click', () => {
+  document.getElementById('prog-id').value       = '';
+  document.getElementById('prog-nama').value     = '';
+  document.getElementById('prog-tarikh').value   = '';
+  document.getElementById('prog-kategori').value = '';
+  document.getElementById('prog-ketua').value    = '';
+  document.getElementById('prog-status').value   = 'Dirancang';
+  document.getElementById('prog-lokasi').value   = '';
+  document.getElementById('modal-program-title').textContent = 'Tambah Program Baharu';
+  bukaModal('modal-program');
+});
+
+function editProgram(id) {
+  const data = baca(KEY_PROGRAM);
+  const p    = data.find(x => x.id === id);
+  if (!p) return;
+  document.getElementById('prog-id').value       = p.id;
+  document.getElementById('prog-nama').value     = p.nama;
+  document.getElementById('prog-tarikh').value   = p.tarikh;
+  document.getElementById('prog-kategori').value = p.kategori;
+  document.getElementById('prog-ketua').value    = p.ketua;
+  document.getElementById('prog-status').value   = p.status;
+  document.getElementById('prog-lokasi').value   = p.lokasi || '';
+  document.getElementById('modal-program-title').textContent = 'Kemaskini Program';
+  bukaModal('modal-program');
+}
+
+function simpanProgram() {
+  const nama     = document.getElementById('prog-nama').value.trim();
+  const tarikh   = document.getElementById('prog-tarikh').value;
+  const kategori = document.getElementById('prog-kategori').value;
+  const ketua    = document.getElementById('prog-ketua').value.trim();
+  const status   = document.getElementById('prog-status').value;
+  const lokasi   = document.getElementById('prog-lokasi').value.trim();
+
+  if (!nama)     { alert('Sila masukkan nama program.'); return; }
+  if (!tarikh)   { alert('Sila pilih tarikh program.');  return; }
+  if (!kategori) { alert('Sila pilih kategori.');        return; }
+  if (!ketua)    { alert('Sila pilih jawatan/unit.'); return; }
+
+  const id   = document.getElementById('prog-id').value;
+  const data = baca(KEY_PROGRAM);
+
+  if (id) {
+    const idx = data.findIndex(x => x.id === id);
+    if (idx > -1) data[idx] = { id, nama, tarikh, kategori, ketua, status, lokasi };
+  } else {
+    data.push({ id: idBaharu(), nama, tarikh, kategori, ketua, status, lokasi });
+  }
+
+  data.sort((a, b) => a.tarikh.localeCompare(b.tarikh));
+  simpan(KEY_PROGRAM, data);
+  tutupModal('modal-program');
+  renderSemua();
+}
+
+// JAWATANKUASA
+const UNIT_LABEL = {
+  'Pembangunan Pelajar': 'Pegawai Pembangunan Pelajar',
+  'Teknologi Elektrik':  'Ketua Program (Teknologi Elektrik)',
+  'Pengajian Am':        'Ketua Unit Pengajian Am',
+  'Peperiksaan':         'Pegawai Peperiksaan',
+  'Jaminan Kualiti':     'Ketua Unit Jaminan Kualiti',
+  'Sukan':               'Penyelaras Sukan'
+};
+
+function renderJK() {
+  const grid  = document.getElementById('jk-grid');
+  const tiada = document.getElementById('tiada-jk');
+  if (!grid) return;
+  const jklist  = baca(KEY_JK);
+  const program = baca(KEY_PROGRAM);
+
+  if (jklist.length === 0) {
+    grid.innerHTML = '';
+    if (tiada) tiada.style.display = '';
+    return;
+  }
+  if (tiada) tiada.style.display = 'none';
+
+  grid.innerHTML = jklist.map(jk => {
+    const myProg    = program.filter(p => p.ketua.toLowerCase().includes(jk.nama.toLowerCase().split(' ')[1] || jk.nama.toLowerCase()));
+    const selesai   = myProg.filter(p => p.status === 'Selesai').length;
+    const aktif     = myProg.filter(p => p.status === 'Aktif').length;
+    const dirancang = myProg.filter(p => p.status === 'Dirancang').length;
+    const emel      = jk.emel ? `<div class="jk-contact">📧 ${jk.emel}</div>` : '';
+
+    return `<div class="jk-card">
+      <div class="jk-icon">${jk.ikon || '👤'}</div>
+      <div class="jk-name">${jk.nama}</div>
+      <div class="jk-jawatan">${UNIT_LABEL[jk.unit] || jk.unit}</div>
+      <div class="jk-stats">
+        <span class="jk-stat-item jk-green">✅ ${selesai} Selesai</span>
+        <span class="jk-stat-item jk-blue">🔵 ${aktif} Aktif</span>
+        <span class="jk-stat-item jk-grey">⏳ ${dirancang} Plan</span>
+      </div>
+      ${emel}
+      <div style="display:flex;gap:6px;margin-top:6px;">
+        <button class="btn btn-outline btn-sm" onclick="editJK('${jk.id}')">✏️ Edit</button>
+        <button class="btn btn-outline btn-sm" style="color:var(--danger);border-color:var(--danger);" onclick="padamKonfirm('jk','${jk.id}','${jk.nama.replace(/'/g,"\\'")}')">🗑️</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+document.getElementById('btn-tambah-jk')?.addEventListener('click', () => {
+  document.getElementById('jk-id').value   = '';
+  document.getElementById('jk-nama').value = '';
+  document.getElementById('jk-unit').value = '';
+  document.getElementById('jk-ikon').value = '📚';
+  document.getElementById('jk-emel').value = '';
+  document.getElementById('modal-jk-title').textContent = 'Tambah Jawatan/Unit';
+  bukaModal('modal-jk');
+});
+
+function editJK(id) {
+  const data = baca(KEY_JK);
+  const jk   = data.find(x => x.id === id);
+  if (!jk) return;
+  document.getElementById('jk-id').value   = jk.id;
+  document.getElementById('jk-nama').value = jk.nama;
+  document.getElementById('jk-unit').value = jk.unit;
+  document.getElementById('jk-ikon').value = jk.ikon || '📚';
+  document.getElementById('jk-emel').value = jk.emel || '';
+  document.getElementById('modal-jk-title').textContent = 'Kemaskini Jawatan/Unit';
+  bukaModal('modal-jk');
+}
+
+function simpanJK() {
+  const nama = document.getElementById('jk-nama').value.trim();
+  const unit = document.getElementById('jk-unit').value;
+  const ikon = document.getElementById('jk-ikon').value;
+  const emel = document.getElementById('jk-emel').value.trim();
+
+  if (!nama) { alert('Sila masukkan nama penuh.'); return; }
+  if (!unit) { alert('Sila pilih unit.'); return; }
+
+  const id   = document.getElementById('jk-id').value;
+  const data = baca(KEY_JK);
+
+  if (id) {
+    const idx = data.findIndex(x => x.id === id);
+    if (idx > -1) data[idx] = { id, nama, unit, ikon, emel };
+  } else {
+    data.push({ id: idBaharu(), nama, unit, ikon, emel });
+  }
+
+  simpan(KEY_JK, data);
+  tutupModal('modal-jk');
+  renderJK();
+}
+
+// PENGUMUMAN
+function renderPengumuman() {
+  const list  = document.getElementById('senarai-pengumuman');
+  const tiada = document.getElementById('tiada-umum');
+  if (!list) return;
+  const data = baca(KEY_UMUM);
+
+  if (data.length === 0) {
+    list.innerHTML = '';
+    if (tiada) tiada.style.display = '';
+    return;
+  }
+  if (tiada) tiada.style.display = 'none';
+
+  list.innerHTML = data.map(u => {
+    let tarikhPapar = u.tarikh || '';
+    if (tarikhPapar) {
+      const dt = new Date(tarikhPapar);
+      if (!isNaN(dt)) {
+        tarikhPapar = `${String(dt.getDate()).padStart(2,'0')}/${String(dt.getMonth()+1).padStart(2,'0')}/${dt.getFullYear()} &bull; ${String(dt.getHours()).padStart(2,'0')}:${String(dt.getMinutes()).padStart(2,'0')}`;
+      }
+    }
+    return `<li class="announcement-item">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;">
+        <div class="announcement-title">${u.tajuk}</div>
+        <div style="display:flex;gap:5px;flex-shrink:0;">
+          <button class="btn btn-outline btn-sm" onclick="editPengumuman('${u.id}')">✏️</button>
+          <button class="btn btn-outline btn-sm" style="color:var(--danger);border-color:var(--danger);" onclick="padamKonfirm('umum','${u.id}','${u.tajuk.replace(/'/g,"\\'")}')">🗑️</button>
+        </div>
+      </div>
+      <div class="announcement-body">${u.isi}</div>
+      ${tarikhPapar ? `<div class="announcement-date">📅 ${tarikhPapar}</div>` : ''}
+    </li>`;
+  }).join('');
+}
+
+document.getElementById('btn-tambah-umum')?.addEventListener('click', () => {
+  document.getElementById('umum-id').value     = '';
+  document.getElementById('umum-tajuk').value  = '';
+  document.getElementById('umum-isi').value    = '';
+  document.getElementById('umum-tarikh').value = '';
+  document.getElementById('modal-umum-title').textContent = 'Tambah Pengumuman Baharu';
+  bukaModal('modal-umum');
+});
+
+function editPengumuman(id) {
+  const data = baca(KEY_UMUM);
+  const u    = data.find(x => x.id === id);
+  if (!u) return;
+  document.getElementById('umum-id').value     = u.id;
+  document.getElementById('umum-tajuk').value  = u.tajuk;
+  document.getElementById('umum-isi').value    = u.isi;
+  document.getElementById('umum-tarikh').value = u.tarikh || '';
+  document.getElementById('modal-umum-title').textContent = 'Kemaskini Pengumuman';
+  bukaModal('modal-umum');
+}
+
+function simpanPengumuman() {
+  const tajuk  = document.getElementById('umum-tajuk').value.trim();
+  const isi    = document.getElementById('umum-isi').value.trim();
+  const tarikh = document.getElementById('umum-tarikh').value;
+
+  if (!tajuk) { alert('Sila masukkan tajuk pengumuman.'); return; }
+  if (!isi)   { alert('Sila masukkan isi pengumuman.');   return; }
+
+  const id   = document.getElementById('umum-id').value;
+  const data = baca(KEY_UMUM);
+
+  if (id) {
+    const idx = data.findIndex(x => x.id === id);
+    if (idx > -1) data[idx] = { id, tajuk, isi, tarikh };
+  } else {
+    data.unshift({ id: idBaharu(), tajuk, isi, tarikh });
+  }
+
+  simpan(KEY_UMUM, data);
+  tutupModal('modal-umum');
+  renderPengumuman();
+}
+
+// PADAM UNIVERSAL
+let _padamJenis = null;
+let _padamId    = null;
+
+function padamKonfirm(jenis, id, nama) {
+  _padamJenis = jenis;
+  _padamId    = id;
+  document.getElementById('padam-mesej').textContent =
+    `Adakah anda pasti mahu memadam "${nama}"? Tindakan ini tidak boleh dibatalkan.`;
+  bukaModal('modal-padam');
+}
+
+document.getElementById('btn-sahkan-padam')?.addEventListener('click', () => {
+  if (!_padamJenis || !_padamId) return;
+
+  const keyMap = { program: KEY_PROGRAM, jk: KEY_JK, umum: KEY_UMUM };
+  const key    = keyMap[_padamJenis];
+  if (!key) return;
+
+  const data = baca(key).filter(x => x.id !== _padamId);
+  simpan(key, data);
+  tutupModal('modal-padam');
+
+  if (_padamJenis === 'program') renderSemua();
+  else if (_padamJenis === 'jk') renderJK();
+  else if (_padamJenis === 'umum') renderPengumuman();
+
+  _padamJenis = null;
+  _padamId    = null;
+});
+
+// MUAT NAIK LAPORAN
+function handleUpload(jenis) {
+  const isLaksana = jenis === 'pelaksanaan';
+  const namaEl    = document.getElementById(isLaksana ? 'pel-nama'   : 'pm-nama');
+  const tarikhEl  = document.getElementById(isLaksana ? 'pel-tarikh' : 'pm-tarikh');
+  const failEl    = document.getElementById(isLaksana ? 'pel-fail'   : 'pm-fail');
+
+  const nama   = namaEl?.value.trim() || '';
+  const tarikh = tarikhEl?.value      || '';
+  const fail   = failEl?.files[0]?.name || '';
+
+  if (!nama)   { alert('Sila masukkan nama program.'); namaEl?.focus(); return; }
+  if (!tarikh) { alert('Sila pilih tarikh program.');  tarikhEl?.focus(); return; }
+  if (!fail)   { alert('Sila pilih fail laporan.');    failEl?.focus(); return; }
+
+  const key     = jenis === 'pelaksanaan' ? KEY_PELAKSANAAN : KEY_POSTMORTEM;
+  const senarai = baca(key);
+  senarai.push({ id: idBaharu(), nama, tarikh, fail, status: 'Belum Disemak' });
+  simpan(key, senarai);
+
+  if (namaEl)   namaEl.value   = '';
+  if (tarikhEl) tarikhEl.value = '';
+  if (failEl)   failEl.value   = '';
+
+  renderUploadTable(jenis);
+}
+
+function renderUploadTable(jenis) {
+  const key     = jenis === 'pelaksanaan' ? KEY_PELAKSANAAN : KEY_POSTMORTEM;
+  const tbodyId = jenis === 'pelaksanaan' ? 'tbody-pelaksanaan' : 'tbody-postmortem';
+  const tbody   = document.getElementById(tbodyId);
+  if (!tbody) return;
+
+  const senarai = baca(key);
+
+  if (senarai.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:14px;">Belum ada laporan dimuat naik.</td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = senarai.map((item, i) => {
+    const badge = item.status === 'Disemak'
+      ? `<span class="badge badge-success">Disemak</span>`
+      : `<span class="badge badge-pending">Belum Disemak</span>`;
+    return `<tr>
+      <td>${i + 1}</td>
+      <td>${item.nama}</td>
+      <td>${formatTarikh(item.tarikh)}</td>
+      <td>📄 ${item.fail}</td>
+      <td>${badge}</td>
+      <td><button class="btn btn-outline btn-sm" style="color:var(--danger);border-color:var(--danger);" onclick="padamLaporan('${key}','${item.id}')">🗑️</button></td>
+    </tr>`;
+  }).join('');
+}
+
+function padamLaporan(key, id) {
+  if (!confirm('Padam rekod laporan ini?')) return;
+  const data = baca(key).filter(x => x.id !== id);
+  simpan(key, data);
+  renderUploadTable(key === KEY_PELAKSANAAN ? 'pelaksanaan' : 'postmortem');
+}
+
+// CHART.JS
+let chartBulanInst    = null;
+let chartKategoriInst = null;
+
+function renderCharts() {
+  if (typeof Chart === 'undefined') return;
+
+  const data      = baca(KEY_PROGRAM);
+  const clrBlue   = '#1a3a6b';
+  const clrMaroon = '#800000';
+  const clrGreen  = '#1a7a3a';
+  const clrOrange = '#b35900';
+  const clrLight  = '#d0e8ff';
+
+  const dataBulan = Array(12).fill(0);
+  data.forEach(p => {
+    const mm = parseInt(bulanDariIso(p.tarikh), 10);
+    if (mm >= 1 && mm <= 12) dataBulan[mm - 1]++;
+  });
+
+  const warnaBulan = dataBulan.map((_, i) => {
+    const mm = String(i + 1).padStart(2, '0');
+    const adaSelesai = data.some(p => bulanDariIso(p.tarikh) === mm && p.status === 'Selesai');
+    return adaSelesai ? clrBlue : clrLight;
+  });
+
+  const kat = { Akademik: 0, Kokurikulum: 0, Komuniti: 0, Pentadbiran: 0 };
+  data.forEach(p => { if (kat[p.kategori] !== undefined) kat[p.kategori]++; });
+
+  if (chartBulanInst)    { chartBulanInst.destroy();    chartBulanInst    = null; }
+  if (chartKategoriInst) { chartKategoriInst.destroy(); chartKategoriInst = null; }
+
+  const ctxBulan = document.getElementById('chartBulan');
+  if (ctxBulan) {
+    chartBulanInst = new Chart(ctxBulan, {
+      type: 'bar',
+      data: {
+        labels: ['Jan','Feb','Mac','Apr','Mei','Jun','Jul','Ogs','Sep','Okt','Nov','Dis'],
+        datasets: [{
+          label: 'Bilangan Program',
+          data: dataBulan,
+          backgroundColor: warnaBulan,
+          borderRadius: 5,
+          borderSkipped: false
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: false },
+          tooltip: { callbacks: { label: ctx => ` ${ctx.parsed.y} program` } }
+        },
+        scales: {
+          y: { beginAtZero: true, ticks: { stepSize: 1 }, grid: { color: '#e0e4ef' } },
+          x: { grid: { display: false } }
+        }
+      }
+    });
+  }
+
+  const ctxKategori = document.getElementById('chartKategori');
+  if (ctxKategori) {
+    chartKategoriInst = new Chart(ctxKategori, {
+      type: 'doughnut',
+      data: {
+        labels: ['Teknologi Elektrik / Pengajian Am','Sukan','Pembangunan Pelajar','Pentadbiran / JK / Peperiksaan'],
+        datasets: [{
+          data: [kat.Akademik, kat.Kokurikulum, kat.Komuniti, kat.Pentadbiran],
+          backgroundColor: [clrBlue, clrMaroon, clrGreen, clrOrange],
+          borderWidth: 2,
+          borderColor: '#ffffff',
+          hoverOffset: 8
+        }]
+      },
+      options: {
+        responsive: true,
+        cutout: '60%',
+        plugins: {
+          legend: { position: 'bottom', labels: { font: { size: 11 }, padding: 12, boxWidth: 12 } },
+          tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${ctx.parsed} program` } }
+        }
+      }
+    });
+  }
+}
+
+// EXPORT & IMPORT
+function exportData() {
+  const payload = {
+    versi:          '1.0',
+    tarikh_eksport: new Date().toISOString(),
+    kolej:          'Kolej Komuniti Santubong',
+    tahun:          '2027',
+    program:        baca(KEY_PROGRAM),
+    jawatankuasa:   baca(KEY_JK),
+    pengumuman:     baca(KEY_UMUM),
+    pelaksanaan:    baca(KEY_PELAKSANAAN),
+    postmortem:     baca(KEY_POSTMORTEM)
+  };
+
+  const json   = JSON.stringify(payload, null, 2);
+  const blob   = new Blob([json], { type: 'application/json' });
+  const url    = URL.createObjectURL(blob);
+  const tarikh = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+  const a      = document.createElement('a');
+  a.href       = url;
+  a.download   = `takwim-kksantubong-${tarikh}.json`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+function importData() {
+  const failEl   = document.getElementById('import-fail');
+  const statusEl = document.getElementById('import-status');
+  const fail     = failEl?.files[0];
+
+  if (!fail) {
+    alert('Sila pilih fail .json untuk diimport.');
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = function (e) {
+    try {
+      const data = JSON.parse(e.target.result);
+
+      if (!data.program || !Array.isArray(data.program)) {
+        throw new Error('Fail JSON tidak sah — tiada data program.');
+      }
+
+      simpan(KEY_PROGRAM,     data.program      || []);
+      simpan(KEY_JK,          data.jawatankuasa  || []);
+      simpan(KEY_UMUM,        data.pengumuman    || []);
+      simpan(KEY_PELAKSANAAN, data.pelaksanaan   || []);
+      simpan(KEY_POSTMORTEM,  data.postmortem    || []);
+
+      if (failEl) failEl.value = '';
+
+      if (statusEl) {
+        const tarikhEksport = data.tarikh_eksport
+          ? new Date(data.tarikh_eksport).toLocaleString('ms-MY')
+          : '—';
+        statusEl.style.display = '';
+        statusEl.style.color   = 'var(--success)';
+        statusEl.innerHTML = `✅ Import berjaya! ${data.program.length} program, ${(data.jawatankuasa||[]).length} ketua unit, ${(data.pengumuman||[]).length} pengumuman dimuatkan. <em>(Eksport asal: ${tarikhEksport})</em>`;
+      }
+
+      renderSemua();
+      renderJK();
+      renderPengumuman();
+      renderUploadTable('pelaksanaan');
+      renderUploadTable('postmortem');
+
+    } catch (err) {
+      if (statusEl) {
+        statusEl.style.display = '';
+        statusEl.style.color   = 'var(--danger)';
+        statusEl.textContent   = `❌ Gagal import: ${err.message}`;
+      }
+    }
+  };
+  reader.readAsText(fail);
+}
+
+// RENDER SEMUA
+function renderSemua() {
+  kemasKiniKPI();
+  renderTakwim();
+  renderProgram();
+  renderCharts();
+}
+
+// INIT
+function init() {
+  renderSemua();
+  renderJK();
+  renderPengumuman();
+  renderUploadTable('pelaksanaan');
+  renderUploadTable('postmortem');
+}
+
+if (typeof Chart !== 'undefined') {
+  init();
+} else {
+  window.addEventListener('load', init);
+}
+  </script>
+</body>
+</html>
